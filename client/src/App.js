@@ -10,6 +10,7 @@ import "./App.css";
 import AddArtist from "./components/forms/AddArtist";
 import Artists from "./components/lists/Artists";
 import Title from "./components/layout/Title";
+import AddInstrument from "./components/forms/AddInstrument";
 
 const client = new ApolloClient({
   link: createHttpLink({ uri: "http://localhost:4000/graphql" }),
@@ -21,6 +22,7 @@ const App = () => (
     <Container className="App">
       <Title />
       <AddArtist />
+      <AddInstrument />
       <Artists />
     </Container>
   </ApolloProvider>

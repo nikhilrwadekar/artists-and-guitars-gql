@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import RemoveArtist from "../buttons/RemoveArtist";
 import DisplayCard from "../cards/DisplayCard";
+import UpdateArtist from "../forms/UpdateArtist";
 
 const useStyles = makeStyles({
   label: {
@@ -31,20 +32,50 @@ const Artist = (props) => {
     setEditMode(!editMode);
   };
 
+  const updateStateVariable = (variable, value) => {
+    switch (variable) {
+      case "firstName":
+        setFirstName(value);
+        break;
+      case "lastName":
+        setLastName(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <DisplayCard>
       <Fragment>
-        <ListItem>
-          <ListItemText primary={fullName()} />
-          <Button variant="contained" style={{ margin: "5px" }}>
-            Edit
-          </Button>
-          <RemoveArtist
+        {editMode ? (
+          <UpdateArtist
             id={props.id}
             firstName={props.firstName}
             lastName={props.lastName}
+            onButtonClick={handleButtonClick}
+            updateStateVariable={updateStateVariable}
           />
-        </ListItem>
+        ) : (
+          <ListItem>
+            <ListItemText primary={fullName()} />
+            <Button
+              onClick={() => setEditMode(true)}
+              variant="contained"
+              style={{ margin: "5px" }}
+            >
+              Edit
+            </Button>
+            <RemoveArtist
+              id={props.id}
+              firstName={props.firstName}
+              lastName={props.lastName}
+            />
+          </ListItem>
+        )}
+
+        {/* Instruments Go Here */}
+
         <CardActions>
           <Button color="primary" size="small" variant="outlined">
             Learn More
