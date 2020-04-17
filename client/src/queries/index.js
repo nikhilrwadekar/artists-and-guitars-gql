@@ -76,7 +76,6 @@ export const UPDATE_INSTRUMENT = gql`
     $brand: String!
     $type: String!
     $price: Number!
-    $artistId: String!
   ) {
     updateInstrument(
       id: $id
@@ -114,6 +113,24 @@ export const REMOVE_INSTRUMENT = gql`
     removeArtist(id: $id) {
       id
       artistId
+    }
+  }
+`;
+
+export const artistWithInstruments = gql`
+  query artist($id: String!) {
+    artist(id: $id) {
+      id
+      firstName
+      lastName
+      instruments(artistId: $id) {
+        id
+        year
+        brand
+        type
+        price
+        artistId
+      }
     }
   }
 `;

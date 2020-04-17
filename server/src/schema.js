@@ -99,6 +99,7 @@ const typeDefs = gql`
     id: String!
     firstName: String!
     lastName: String!
+    instruments: [Instrument]
   }
 
   type Instrument {
@@ -112,6 +113,7 @@ const typeDefs = gql`
 
   type Query {
     artists: [Artist]
+    artist(id: String!): Artist
     instruments(artistId: String!): [Instrument]
   }
 
@@ -144,6 +146,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     artists: () => artists,
+    artist: (root, args) => find(artists, { id: args.id }),
     instruments: (root, args) =>
       filter(instruments, { artistId: args.artistId }),
   },
@@ -201,9 +204,7 @@ const resolvers = {
       instrument.brand = args.brand;
       instrument.type = args.type;
       instrument.price = args.price;
-      instrument.artistId = args.artistId;
-      // instrument.firstName = args.firstName;
-      // instrument.lastName = args.lastName;
+
       return instrument;
     },
     removeInstrument: (root, args) => {

@@ -49,7 +49,7 @@ const UpdateArtist = (props) => {
           optimisticResponse: {
             __typename: "Mutation",
             updateArtist: {
-              __typename: "Artist",
+              __typename: "Instrument",
               id,
               year,
               brand,

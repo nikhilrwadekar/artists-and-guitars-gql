@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import ListItem from "@material-ui/core/ListItem";
@@ -18,6 +18,11 @@ const useStyles = makeStyles({
 });
 
 const Artist = (props) => {
+  let history = useHistory();
+
+  function learnMoreAboutArtists() {
+    history.push(`/artists/${props.id}/`);
+  }
   const classes = useStyles();
 
   const [id] = useState(props.id);
@@ -79,7 +84,12 @@ const Artist = (props) => {
         <Instruments artistId={props.id} />
 
         <CardActions>
-          <Button color="primary" size="small" variant="outlined">
+          <Button
+            onClick={learnMoreAboutArtists}
+            color="primary"
+            size="small"
+            variant="outlined"
+          >
             Learn More
           </Button>
         </CardActions>
