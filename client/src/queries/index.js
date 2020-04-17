@@ -69,8 +69,8 @@ export const ADD_INSTRUMENT = gql`
   }
 `;
 
-export const ADD_INSTRUMENT = gql`
-  mutation AddInstrument(
+export const UPDATE_INSTRUMENT = gql`
+  mutation updateInstrument(
     $id: String!
     $year: String!
     $brand: String!
@@ -78,7 +78,7 @@ export const ADD_INSTRUMENT = gql`
     $price: Number!
     $artistId: String!
   ) {
-    addInstrument(
+    updateInstrument(
       id: $id
       year: $year
       brand: $brand

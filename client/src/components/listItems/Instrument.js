@@ -62,8 +62,10 @@ const Instrument = (props) => {
         {editMode ? (
           <UpdateInstrument
             id={props.id}
-            firstName={props.firstName}
-            lastName={props.lastName}
+            year={year}
+            brand={brand}
+            type={type}
+            price={price}
             onButtonClick={handleButtonClick}
             updateStateVariable={updateStateVariable}
           />

@@ -38,26 +38,30 @@ const UpdateArtist = (props) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        updateArtist({
+        updateInstrument({
           variables: {
             id,
-            firstName,
-            lastName,
+            year,
+            brand,
+            type,
+            price,
           },
           optimisticResponse: {
             __typename: "Mutation",
             updateArtist: {
               __typename: "Artist",
               id,
-              firstName,
-              lastName,
+              year,
+              brand,
+              type,
+              price,
             },
           },
         });
         props.onButtonClick();
       }}
     >
-      <TextField
+      {/* <TextField
         label="First Name"
         defaultValue={firstName}
         placeholder="i.e. John"
@@ -65,23 +69,56 @@ const UpdateArtist = (props) => {
         margin="normal"
         varian="outlined"
         style={{ margin: "10px" }}
-      />
+      /> */}
       <TextField
-        label="Last Name"
-        defaultValue={lastName}
-        placeholder="i.e. Smith"
-        onChange={(e) => updateStateVariable("lastName", e.target.value)}
+        fullWidth
+        value={year}
+        label="Year"
+        placeholder="Year"
+        onChange={(e) => setYear(e.target.value)}
         margin="normal"
-        varian="outlined"
+        variant="outlined"
         style={{ margin: "10px" }}
       />
+      <TextField
+        fullWidth
+        value={brand}
+        label="Brand"
+        placeholder="Brand"
+        onChange={(e) => setBrand(e.target.value)}
+        margin="normal"
+        variant="outlined"
+        style={{ margin: "10px" }}
+      />
+
+      <TextField
+        fullWidth
+        value={type}
+        label="Type"
+        placeholder="Type"
+        onChange={(e) => setType(e.target.value)}
+        margin="normal"
+        variant="outlined"
+        style={{ margin: "10px" }}
+      />
+      <TextField
+        fullWidth
+        value={price}
+        label="Price"
+        placeholder="Price"
+        onChange={(e) => setPrice(e.target.value)}
+        margin="normal"
+        variant="outlined"
+        style={{ margin: "10px" }}
+      />
+
       <Button
         type="submit"
         variant="contained"
         color="primary"
         style={{ margin: "10px" }}
       >
-        Update Artist
+        Update Device
       </Button>
       <Button
         onClick={props.onButtonClick}
