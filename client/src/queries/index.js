@@ -45,13 +45,26 @@ export const REMOVE_ARTIST = gql`
 export const ADD_INSTRUMENT = gql`
   mutation AddInstrument(
     $id: String!
-    $firstName: String!
-    $lastName: String!
+    $year: String!
+    $brand: String!
+    $type: String!
+    $price: Number!
+    $artistID: String!
   ) {
-    addArtist(id: $id, firstName: $firstName, lastName: $lastName) {
+    addInstrument(
+      id: $id
+      year: $year
+      brand: $brand
+      type: $type
+      price: $price
+      artistID: $artistID
+    ) {
       id
-      firstName
-      lastName
+      year
+      brand
+      type
+      price
+      artistID
     }
   }
 `;

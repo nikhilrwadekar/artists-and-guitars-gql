@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 
 // Material UI
 import Button from "@material-ui/core/Button";
@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { ADD_INSTRUMENT, GET_INSTRUMENTS } from "../../queries/index";
+import { ADD_INSTRUMENT, GET_INSTRUMENTS, GET_ARTISTS } from "../../queries";
 
 const AddInstrument = () => {
   const [id] = useState(uuidv4());
@@ -17,7 +17,7 @@ const AddInstrument = () => {
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
-  const [artistID, setArtistID] = useState("");
+  const [artistId, setArtistID] = useState("");
 
   const [addInstrument] = useMutation(ADD_INSTRUMENT, {
     update(cache, { data: { addInstrument } }) {
@@ -29,6 +29,10 @@ const AddInstrument = () => {
     },
   });
 
+  // Get Artists for Select
+  const { loading, error, data } = useQuery(GET_ARTISTS);
+  if (loading) return "Loading...";
+  if (error) return `Errror! ${error.message}`;
   return (
     <form
       onSubmit={(e) => {
@@ -40,7 +44,7 @@ const AddInstrument = () => {
             brand,
             type,
             price,
-            artistID,
+            artistId,
           },
           optimisticResponse: {
             __typename: "Mutation",
@@ -51,7 +55,7 @@ const AddInstrument = () => {
               brand,
               type,
               price,
-              artistID,
+              artistId,
             },
           },
           update: (proxy, { data: { addInstrument } }) => {
@@ -110,17 +114,14 @@ const AddInstrument = () => {
         fullWidth
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
-        value={artistID}
+        value={artistId}
         variant="outlined"
         style={{ margin: "10px" }}
-        onChange={() => {}}
+        onChange={(e) => setArtistID(e.target.value)}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        {data.artists.map(({ id, firstName, lastName }) => (
+          <MenuItem value={id}>{`${firstName} ${lastName}`}</MenuItem>
+        ))}
       </Select>
 
       <Button
