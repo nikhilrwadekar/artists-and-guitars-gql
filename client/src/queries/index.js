@@ -49,7 +49,7 @@ export const ADD_INSTRUMENT = gql`
     $brand: String!
     $type: String!
     $price: Number!
-    $artistID: String!
+    $artistId: String!
   ) {
     addInstrument(
       id: $id
@@ -57,24 +57,63 @@ export const ADD_INSTRUMENT = gql`
       brand: $brand
       type: $type
       price: $price
-      artistID: $artistID
+      artistId: $artistId
     ) {
       id
       year
       brand
       type
       price
-      artistID
+      artistId
+    }
+  }
+`;
+
+export const ADD_INSTRUMENT = gql`
+  mutation AddInstrument(
+    $id: String!
+    $year: String!
+    $brand: String!
+    $type: String!
+    $price: Number!
+    $artistId: String!
+  ) {
+    addInstrument(
+      id: $id
+      year: $year
+      brand: $brand
+      type: $type
+      price: $price
+      artistId: $artistId
+    ) {
+      id
+      year
+      brand
+      type
+      price
+      artistId
     }
   }
 `;
 
 export const GET_INSTRUMENTS = gql`
-  {
-    artists {
+  query instruments($artistId: String!) {
+    instruments(artistId: $artistId) {
       id
-      firstName
-      lastName
+      year
+      brand
+      type
+      price
+      artistId
+    }
+  }
+`;
+
+export const REMOVE_INSTRUMENT = gql`
+  mutation RemoveInstrument($id: String!) {
+    removeArtist(id: $id) {
+      id
+      artistId
     }
   }
 `;

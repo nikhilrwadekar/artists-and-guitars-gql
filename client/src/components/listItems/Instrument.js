@@ -6,10 +6,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 
-import RemoveArtist from "../buttons/RemoveArtist";
+import RemoveInstrument from "../buttons/RemoveInstrument";
 import DisplayCard from "../cards/DisplayCard";
-import Instruments from "../lists/Instruments";
-import UpdateArtist from "../forms/UpdateArtist";
+import InstrumentCard from "../cards/InstrumentCard";
+import UpdateInstrument from "../forms/UpdateInstrument";
 
 const useStyles = makeStyles({
   label: {
@@ -17,16 +17,19 @@ const useStyles = makeStyles({
   },
 });
 
-const Artist = (props) => {
+const Instrument = (props) => {
   const classes = useStyles();
 
   const [id] = useState(props.id);
-  const [firstName, setFirstName] = useState(props.firstName);
-  const [lastName, setLastName] = useState(props.lastName);
+  const [year, setYear] = useState(props.year);
+  const [brand, setBrand] = useState(props.brand);
+  const [type, setType] = useState(props.type);
+  const [price, setPrice] = useState(props.price);
+  const [artistId, setArtistId] = useState(props.artistId);
   const [editMode, setEditMode] = useState(false);
 
   const fullName = () => {
-    return `${firstName} ${lastName}`;
+    return `${year} ${brand} ${type}`;
   };
 
   const handleButtonClick = () => {
@@ -35,12 +38,19 @@ const Artist = (props) => {
 
   const updateStateVariable = (variable, value) => {
     switch (variable) {
-      case "firstName":
-        setFirstName(value);
+      case "year":
+        setYear(value);
         break;
-      case "lastName":
-        setLastName(value);
+      case "brand":
+        setBrand(value);
         break;
+      case "type":
+        setType(value);
+        break;
+      case "price":
+        setPrice(value);
+        break;
+
       default:
         break;
     }
@@ -50,7 +60,7 @@ const Artist = (props) => {
     <DisplayCard>
       <Fragment>
         {editMode ? (
-          <UpdateArtist
+          <UpdateInstrument
             id={props.id}
             firstName={props.firstName}
             lastName={props.lastName}
@@ -67,25 +77,16 @@ const Artist = (props) => {
             >
               Edit
             </Button>
-            <RemoveArtist
+            <RemoveInstrument
               id={props.id}
               firstName={props.firstName}
               lastName={props.lastName}
             />
           </ListItem>
         )}
-
-        {/* Instruments Go Here */}
-        <Instruments artistId={props.id} />
-
-        <CardActions>
-          <Button color="primary" size="small" variant="outlined">
-            Learn More
-          </Button>
-        </CardActions>
       </Fragment>
     </DisplayCard>
   );
 };
 
-export default Artist;
+export default Instrument;
